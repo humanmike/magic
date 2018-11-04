@@ -1,0 +1,153 @@
+openapi: 3.0.0
+info:
+  title: project项目
+  description: >-
+    该接口支持以下功能：
+    11.添加项目时导入模板接口
+  version: v1
+servers:
+  - url: 'https://api.ones.ai/project/v1/'
+paths:
+  /team/{teamUUID}/projects/add:
+    post:
+      tags:
+        - Project
+      description: 添加项目时导入模板接口
+      operationId: ProjectsAdd
+      parameters:
+        - $ref: './api_schema/common/parameters.yaml#/parameters/Ones-User-Id'
+        - $ref: './api_schema/common/parameters.yaml#/parameters/Ones-Auth-Token'
+        - $ref: './api_schema/common/parameters.yaml#/parameters/teamUUID'
+      requestBody:
+        description: 添加项目信息
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project:
+                  $ref: '#/components/schemas/ProjectInfo'
+                issue_types:
+                  $ref: '#/components/schemas/uuids'
+                members:
+                  $ref: '#/components/schemas/uuids'
+                copy_from:
+                  type: object
+                  properties:
+                    project_uuid:
+                      $ref: '#/components/schemas/uuid'
+                  required:
+                    -project_uuid
+                  additionalProperties:
+                    description: key:project_uuid, value:issue_type_uuid
+                    $ref: '#/components/schemas/uuids'
+              required:
+                - project
+      responses:
+        '200':
+          description: 添加成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    $ref: './api_schema/api/project/project/schemas.yaml#/ProjectInfo'
+                  server_update_stamp:
+                    $ref: './api_schema/api/project/project/schemas.yaml#/server_update_stamp'
+        '400':
+          description: 未传必填参数
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: './api_schema/api/project/project/errors.yaml#/MissingParameterProjectName'
+                  - $ref: './api_schema/api/project/project/errors.yaml#/MissingParameterProject'
+        '403':
+          description: 无操作权限
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: './api_schema/api/project/project/errors.yaml#/AccessDeniedTeam'
+                  - $ref: './api_schema/api/project/project/errors.yaml#/PermissionDeniedAdministerDo'
+        '801':
+          description: 传入参数不合法
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: './api_schema/api/project/project/errors.yaml#/InvalidParameterProjectNameTooLong'
+                  - $ref: './api_schema/api/project/project/errors.yaml#/InvalidParameterProjectUUIDInvalidFormat'
+                  - $ref: './api_schema/api/project/project/errors.yaml#/InvalidParameterProjectIssueTypeInvalidFormat'
+                  - $ref: './api_schema/api/project/project/errors.yaml#/InvalidParameterProjectMemberInvalidFormat'
+                  - $ref: './api_schema/api/project/project/errors.yaml#/InvalidParameterProjectMemberNotTeamMember'
+        default:
+          description: 服务不可用
+          content:
+            application/json:
+              schema:
+                $ref: './api_schema/common/errors.yaml#/UnknownError'
+components:
+  schemas:
+    ProjectInfo:
+      description: 添加项目信息
+      type: object
+      properties:
+        uuid:
+          description: 项目uuid
+          type: string
+          maxLength: 16
+        name:
+          description: 项目名称
+          type: string
+          minLength: 0
+          maxLength: 128
+        status:
+          description: >-
+            项目状态
+            1.进行中
+            2.已删除
+            3.归档
+          type: integer
+          format: int32
+          enum:
+            - 1
+            - 2
+            - 3
+        announcement:
+          description: 项目公告
+          type: string
+          minLength: 0
+          maxLength: 512
+        deadline:
+          description: 截止时间，与1970的秒差
+          type: integer
+          format: int64
+        is_pin:
+          description: 是否置顶
+          type: boolean
+        is_open_email_notify:
+          description: 是否开通邮件通知
+          type: boolean
+        admins:
+          description: 项目管理员（user_uuid数组）
+          type: array
+          items:
+            type: string
+        task_update_time:
+          description: 项目下任务更新时间（单位秒）
+          type: integer
+          format: int64
+      required:
+        - uuid
+        - name
+    uuid:
+      description: uuid
+      type: string
+      maxLength: 8
+    uuids:
+      description: uuid数组
+      type: array
+      items:
+        $ref: '#components/schemas/uuid'

@@ -1,0 +1,53 @@
+openapi: 3.0.0
+info:
+  title: project 项目
+  description: >-
+    该接口支持以下功能：
+    5. 获取当前用户Project列表
+  version: v1
+servers:
+  - url: 'https://api.ones.ai/project/v1/'
+paths:
+  /team/{teamUUID}/projects/my_project:
+    get:
+      tags:
+        - Project
+      description: 获取当前用户Project列表
+      operationId: ProjectsMyProject
+      parameters:
+        - $ref: './api_schema/common/parameters.yaml#/parameters/Ones-User-Id'
+        - $ref: './api_schema/common/parameters.yaml#/parameters/Ones-Auth-Token'
+        - $ref: './api_schema/common/parameters.yaml#/parameters/teamUUID'
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                description: 返回项目信息
+                type: object
+                properties:
+                  projects:
+                    type: array
+                    items:
+                      $ref: './api_schema/api/project/project/schemas.yaml#ProjectInfo'
+                  archive_projects:
+                    type: array
+                    items:
+                      $ref: './api_schema/api/project/project/schemas.yaml#ProjectInfo'
+                  server_update_stamp:
+                    $ref: './api_schema/api/project/project/schemas.yaml#/server_update_stamp'
+        '403':
+          description: 无操作权限
+          content:
+            application/json:
+              schema:
+                  $ref: './api_schema/api/project/project/errors.yaml#/AccessDeniedTeam'
+        default:
+          description: 服务不可用
+          content:
+            application/json:
+              schema:
+                $ref: './api_schema/common/errors.yaml#/UnknownError'
+                  
+

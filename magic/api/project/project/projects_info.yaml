@@ -1,0 +1,66 @@
+openapi: 3.0.0
+info:
+  title: project 项目
+  description: >-
+    该接口支持以下功能：
+    4.根据项目id获取项目列表
+  version: v1
+servers:
+  - url: 'https://api.ones.ai/project/v1/'
+paths:
+  /team/{teamUUID}/projects/info:
+    get:
+      tags:
+        - Project
+      description: 根据项目id获取项目列表
+      operationId: ProjectsInfo
+      parameters:
+        - $ref: './api_schema/common/parameters.yaml#/parameters/Ones-User-Id'
+        - $ref: './api_schema/common/parameters.yaml#/parameters/Ones-Auth-Token'
+        - $ref: './api_schema/common/parameters.yaml#/parameters/teamUUID'
+        - name: ids
+          in: query
+          description: 项目uuid，多个使用逗号隔开
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                description: 返回项目列表信息
+                type: object
+                properties:
+                  projects:
+                    type: array
+                    items:
+                      $ref: './api_schema/api/project/project/schemas.yaml#ProjectInfo'
+                  errors:
+                    type: array
+                    items:
+                      anyOf:
+                        - $ref: './api_schema/api/project/project/errors.yaml#/InvalidParameterProjectUUIDInvalidFormatWithUUID'
+                        - $ref: './api_schema/api/project/project/errors.yaml#/NotFoundProjectWithUUID'
+        '400':
+          description: 未传必填参数
+          content:
+            application/json:
+              schema:
+                $ref: './api_schema/api/project/project/errors.yaml#/InvalidParameterProjectUUIDInvalidFormat'
+        '403':
+          description: 无操作权限
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: './api_schema/api/project/project/errors.yaml#/AccessDeniedTeam'
+                  - $ref: './api_schema/api/project/project/errors.yaml#/PermissionDeniedAdministerDo' 
+        default:
+          description: 服务不可用
+          content:
+            application/json:
+              schema:
+                $ref: './api_schema/common/errors.yaml#/UnknownError'
+                    

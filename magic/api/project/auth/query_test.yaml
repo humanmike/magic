@@ -1,0 +1,28 @@
+openapi: 3.0.0
+paths:
+  /users:
+    get:
+      parameters:
+        - name: Ones-Auth-Token
+          in: header
+          description: Ones auth token
+          required: true
+          schema:
+            type: string
+            minLength: 0
+            maxLength: 16
+        - name: Ones-User-ID
+          in: header
+          description: Ones user id
+          required: true
+          schema:
+            type: string
+            minLength: 0
+            maxLength: 16
+        - name: teamUUID
+          in: header
+          description: 团队UUID
+          required: true
+          schema:
+            type: string
+            maxLength: 16

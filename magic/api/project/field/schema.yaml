@@ -1,0 +1,104 @@
+field_config:
+  description: 属性配置
+  type: object
+  properties:
+    project_uuid:
+      $ref: '/api_schema/api/project/project/schemas.yaml#/project_uuid'
+    issue_type_uuid:
+      $ref: '/api_schema/api/project/issue_type/schemas.yaml#/issue_type_uuid'
+    field_uuid:
+      $ref: '#/field_uuid'
+    is_important_field:
+      $ref: '#/is_important_field'
+    important_field_position:
+      $ref: '#/important_field_position'
+    default_value:
+      $ref: '#/default_value'
+    required:
+      $ref: '#/required'
+    can_delete:
+      $ref: '#/can_delete'
+    can_modify_required:
+      $ref: '#/can_modify_required'
+    renderer:
+      $ref: '#/renderer'
+    filter_option:
+      $ref: '#/filter_option'
+    search_option:
+      $ref: '#/search_option'
+    position:
+      $ref: '#/position'
+    option_configs:
+      $ref: '#/option_configs'
+  required:
+    - field_uuid
+    - can_delete
+    - can_modify_required
+    - is_important_field
+    - important_field_position
+    - required
+field_uuid:
+  description: 全局属性uuid
+  type: string
+  minLength: 8
+  maxLength: 8
+is_important_field:
+  description: 是否关键属性
+  type: boolean
+important_field_position:
+  description: 关键属性位置
+  type: integer
+  minimum: 0
+default_value:
+  description: 属性默认值覆盖
+  type: string
+required:
+  description: 属性是否必填
+  type: boolean
+can_delete:
+  description: 是否可以删除
+  type: boolean
+can_modify_required:
+  description: 是否可以修改"必填项"
+  type: boolean
+renderer:
+  description: 属性渲染方式覆盖
+  type: integer
+filter_option:
+  description: 属性过滤选项覆盖
+  type: integer
+  enum:
+    - 0
+    - 1
+search_option:
+  description: 属性搜索选项覆盖
+  type: integer
+  enum:
+    - 0
+    - 1
+position:
+  description: 属性位置
+  type: integer
+  format: int64
+option_configs:
+  description: 属性选项覆盖
+  type: object
+  properties:
+    uuid:
+      $ref: '#/option_uuid'
+    selected:
+      $ref: '#/option_selected'
+generated:
+  description: 属性的值是否是由系统生成的，生成的属性值无法修改
+  type: boolean
+  default: false
+option_uuid: 
+  description: 全局属性选项 uuid
+  type: string
+  minLength: 8
+  maxLength: 8
+option_selected:
+  description: 属性选项默认选中覆盖
+  type: boolean
+  enum:
+    - false

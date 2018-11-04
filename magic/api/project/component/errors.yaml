@@ -1,0 +1,80 @@
+MalformedJSON:
+  description: JSON 解析错误
+  type: object
+  properties:
+    errcode:
+      type: string
+      enum:
+      - Malformed.JSON
+    code:
+      type: integer
+      format: int32
+      enum:
+      - 400
+    type:
+      type: string
+      enum:
+      - Malformed
+    format:
+      type: string
+      enum:
+      - JSON
+  required:
+  - errcode
+  - code
+  - type
+  - format
+
+MissingParameterComponentTemplateUUID:
+  description: 模板UUID为空
+  type: object
+  properties:
+    errcode:
+      type: string
+      enum:
+        - MissingParameter.ComponentTemplate.TemplateUUID
+    code:
+      type: integer
+      format: int32
+      enum:
+      - 400
+    type:
+      type: string
+      enum:
+      - MissingParameter
+    format:
+      type: string
+      enum:
+      - JSON
+  required:
+  - errcode
+  - code
+  - type
+  - format
+
+MissingParameterComponentUUID:
+  description: 组件UUID为空
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+      - 400
+    errcode:
+      type: string
+      enum:
+        - MissingParameter.Component.UUID
+    type:
+      type: string
+      enum:
+      - MissingParameter
+    format:
+      type: string
+      enum:
+      - JSON
+  required:
+  - errcode
+  - code
+  - type
+  - format

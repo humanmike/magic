@@ -1,0 +1,99 @@
+IssueTypeResponse:
+  description: 返回任务类型信息
+  type: object
+  properties:
+    user:
+      $ref: '#/user'
+    teams:
+      type: array
+      items:
+        $ref: '#/team'
+    org:
+      $ref: '#/org'
+issue_type_uuid:
+  type: string
+  description: 任务类型uuid
+  minLength: 8
+  maxLength: 8
+name:
+  description: 任务类型名称
+  type: string
+  minLength: 0
+  maxLength: 32
+name_pinyin:
+  type: string
+  description: 任务类型名称拼音
+  minLength: 0
+  maxLength: 128
+icon:
+  description: 任务类型标识
+  type: integer
+  minLength: 1
+  maximum: 14
+copy_from:
+  description: 已有的任务类型UUID，复制该任务类型的默认配置
+  type: string
+  minimum: 8
+  maxLength: 8
+issue_type:
+  description: 任务类型信息
+  type: object
+  properties:
+    uuid:
+      $ref: '#/uuid'
+    name:
+      $ref: '#/name'
+    name_pinyin:
+      
+    icon:
+      $ref: '#/icon'
+    built_in:
+      type: boolean
+      description: 是否是系统内置任务类型，内置任务类型无法修改或者删除
+    default_selected:
+      type: boolean
+      description: 是否默认选中
+    default_configs:
+      $ref: '#/default_configs'
+    create_time:
+      type: integer
+      format: int64
+      description: 任务类型创建时间，用于排序
+    server_update_stamp:
+      type: integer
+      format: int64
+      description: 任务类型的数据更新时间
+default_configs:
+  description: 任务类型默认配置
+  type: object
+  properties:
+    default_field_configs:
+      type: array
+      items:
+        $ref: '#/default_field_configs'
+      minItems: 1
+    default_permission_rules:
+      type: array
+      items:
+        $ref: '#/default_permission_rules'
+      minItems: 1
+    default_task_status_configs:
+      type: array
+      items:
+        $ref: '#/default_task_status_configs'
+      minItems: 1
+default_field_configs:
+  description: 默认属性配置
+  type: object
+  properties:
+
+
+default_permission_rules:
+  description: 默认权限配置
+  type: object
+  properties:
+
+default_task_status_configs:
+  description: 默认任务状态配置
+  type: object
+  properties:

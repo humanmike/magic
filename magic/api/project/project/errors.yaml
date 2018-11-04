@@ -1,0 +1,491 @@
+AccessDeniedTeam:
+  description: 无权限访问团队
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 403
+    errcode:
+      type: string
+      enum:
+        - AccessDenied.Team
+    model:
+      type: string
+      enum:
+        - Team
+    type:
+      type: string
+      enum:
+        - AccessDenied
+MissingParameterProjectName:
+  description: 项目名称为空
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 400
+    errcode:
+      type: string
+      enum:
+        - MissingParameter.Project.Name
+    field:
+      type: string
+      enum:
+        - Name
+    model:
+      type: string
+      enum:
+        - Project
+    type:
+      type: string
+      enum:
+        - MissingParameter
+MissingParameterProject:
+  description: 任务类型为空
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 400
+    errcode:
+      type: string
+      enum:
+        - MissingParameter.Project
+    field:
+      type: string
+      enum:
+        - Project
+    type:
+      type: string
+      enum:
+        - MissingParameter
+PermissionDeniedAdministerDo:
+  description: 无操作项目权限
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 403
+    errcode:
+      type: string
+      enum:
+        - PermissionDenied.AdministerDo
+    permission:
+      type: string
+      enum:
+        - AdministerDo
+    type:
+      type: string
+      enum:
+        - PermissionDenied
+PermissionDeniedManageProject:
+  description: 无管理项目权限
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 403
+    errcode:
+      type: string
+      enum:
+        - PermissionDenied.ManageProject
+    permission:
+      type: string
+      enum:
+        - ManageProject
+    type:
+      type: string
+      enum:
+        - PermissionDenied
+    uuid:
+      type: string
+      maxLength: 16
+InvalidParameterProjectNameTooLong:
+  description: 项目名称超长或项目名称为空
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 801
+    errcode:
+      type: string
+      enum:
+        - InvalidParameter.Project.Name.TooLong
+    field:
+      type: string
+      enum:
+        - Name
+    model:
+      type: string
+      enum:
+        - Project
+    reason:
+      type: string
+      enum:
+        - TooLong
+    type:
+      type: string
+      enum:
+        - InvalidParameter
+InvalidParameterProjectUUIDInvalidFormat:
+  description: 项目UUID格式不正确
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 400
+        - 801
+    errcode:
+      type: string
+      enum:
+        - InvalidParameter.Project.UUID.InvalidFormat
+    field:
+      type: string
+      enum:
+        - UUID
+    model:
+      type: string
+      enum:
+        - Project
+    reason:
+      type: string
+      enum:
+        - InvalidFormat
+    type:
+      type: string
+      enum:
+        - InvalidParameter
+NotFoundProject:
+  description: 找不到项目
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 404
+        - 630
+    errcode:
+      type: string
+      enum:
+        - NotFound.Project
+    model:
+      type: string
+      enum:
+        - Project
+    type:
+      type: string
+      enum:
+        - NotFound
+InvalidParameterProjectIssueTypeInvalidFormat:
+  description: 任务类型格式不正确
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 801
+    errcode:
+      type: string
+      enum:
+        - InvalidParameter.Project.IssueType.InvalidFormat
+    field:
+      type: string
+      enum:
+        - IssueType
+    model:
+      type: string
+      enum:
+        - Project
+    reason:
+      type: string
+      enum:
+        - InvalidFormat
+    type:
+      type: string
+      enum:
+        - InvalidParameter
+InvalidParameterProjectMemberInvalidFormat:
+  description: 项目成员格式不正确
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 801
+    errcode:
+      type: string
+      enum:
+        - InvalidParameter.Project.Member.InvalidFormat
+    field:
+      type: string
+      enum:
+        - Member
+    model:
+      type: string
+      enum:
+        - Project
+    reason:
+      type: string
+      enum:
+        - InvalidFormat
+    type:
+      type: string
+      enum:
+        - InvalidParameter
+InvalidParameterProjectMemberNotTeamMember:
+  description: 找不到团队成员
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 801
+    errcode:
+      type: string
+      enum:
+        - InvalidParameter.Project.Member.NotTeamMember
+    field:
+      type: string
+      enum:
+        - Member
+    model:
+      type: string
+      enum:
+        - Project
+    reason:
+      type: string
+      enum:
+        - NotTeamMember
+    type:
+      type: string
+      enum:
+        - InvalidParameter
+InvalidParameterProjectTypeInvalidType:
+  description: 类型不合法
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 801
+    errcode:
+      type: string
+      enum:
+        - InvalidParameter.Project.Type.InvalidType
+    field:
+      type: string
+      enum:
+        - Type
+    model:
+      type: string
+      enum:
+        - Project
+    reason:
+      type: string
+      enum:
+        - InvalidType
+    type:
+      type: string
+      enum:
+        - InvalidParameter
+InvalidParameterProjectNameTooLongWithUUID:
+  description: 项目名称超长或项目名称为空
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 801
+    errcode:
+      type: string
+      enum:
+        - InvalidParameter.Project.Name.TooLong
+    field:
+      type: string
+      enum:
+        - Name
+    model:
+      type: string
+      enum:
+        - Project
+    reason:
+      type: string
+      enum:
+        - TooLong
+    type:
+      type: string
+      enum:
+        - InvalidParameter
+    uuid:
+      type: string
+      maxLength: 16
+InvalidParameterProjectAnnouncementTooLongWithUUID:
+  description: 项目公告超长
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 801
+    errcode:
+      type: string
+      enum:
+        - InvalidParameter.Project.Announcement.TooLong
+    field:
+      type: string
+      enum:
+        - Announcement
+    model:
+      type: string
+      enum:
+        - Project
+    reason:
+      type: string
+      enum:
+        - TooLong
+    type:
+      type: string
+      enum:
+        - InvalidParameter
+    uuid:
+      type: string
+      maxLength: 16
+NotFoundProjectWithUUID:
+  description: 找不到项目
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 609
+    errcode:
+      type: string
+      enum:
+        - NotFound.Project
+    model:
+      type: string
+      enum:
+        - Project
+    type:
+      type: string
+      enum:
+        - NotFound
+    uuid:
+      type: string
+InvalidParameterProjectUUIDInvalidFormatWithUUID:
+  description: 项目UUID格式不正确
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 801
+    errcode:
+      type: string
+      enum:
+        - InvalidParameter.Project.UUID.InvalidFormat
+    field:
+      type: string
+      enum:
+        - UUID
+    model:
+      type: string
+      enum:
+        - Project
+    reason:
+      type: string
+      enum:
+        - InvalidFormat
+    type:
+      type: string
+      enum:
+        - InvalidParameter
+    uuid:
+      type: string
+InvalidParameterProjectDeadlineInvalidFormatWithUUID:
+  description: 截止日期格式不正确
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 801
+    errcode:
+      type: string
+      enum:
+        - InvalidParameter.Project.Deadline.InvalidFormat
+    field:
+      type: string
+      enum:
+        - Deadline
+    model:
+      type: string
+      enum:
+        - Project
+    reason:
+      type: string
+      enum:
+        - InvalidFormat
+    type:
+      type: string
+      enum:
+        - InvalidParameter
+    uuid:
+      type: string
+      maxLength: 16
+InvalidParameterProjectStatusInvalidTypeWithUUID:
+  description: 项目状态格式不正确
+  type: object
+  properties:
+    code:
+      type: integer
+      format: int32
+      enum:
+        - 801
+    errcode:
+      type: string
+      enum:
+        - InvalidParameter.Project.Status.InvalidType
+    field:
+      type: string
+      enum:
+        - Status
+    model:
+      type: string
+      enum:
+        - Project
+    reason:
+      type: string
+      enum:
+        - InvalidType
+    type:
+      type: string
+      enum:
+        - InvalidParameter
+    uuid:
+      type: string
+      maxLength: 16

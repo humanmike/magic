@@ -1,0 +1,77 @@
+permission_rule:
+  description: 权限规则
+  type: object
+  properties:
+    project_uuid:
+      $ref: '/api_schema/api/project/project/schemas.yaml#/project_uuid'
+    issue_type_uuid:
+      $ref: '/api_schema/api/project/issue_type/schemas.yaml#/issue_type_uuid'
+    field_uuid:
+      $ref: '#/field_uuid'
+    is_important_field:
+      $ref: '#/is_important_field'
+    important_field_position:
+      $ref: '#/important_field_position'
+    default_value:
+      $ref: '#/default_value'
+    required:
+      $ref: '#/required'
+    can_delete:
+      $ref: '#/can_delete'
+    can_modify_required:
+      $ref: '#/can_modify_required'
+    renderer:
+      $ref: '#/renderer'
+    filter_option:
+      $ref: '#/filter_option'
+    search_option:
+      $ref: '#/search_option'
+    position:
+      $ref: '#/position'
+    option_configs:
+      $ref: '#/option_configs'
+  required:
+    - field_uuid
+    - can_delete
+    - can_modify_required
+    - is_important_field
+    - important_field_position
+    - required
+permission_uuid:
+  description: 权限规则uuid
+  type: string
+  minLength: 8
+  maxLength: 8
+context_type:
+  description: 权限规则适用的上下文类型
+  type: string
+  enum:
+    - organization
+    - team
+    - project
+    - issue_type
+    - space
+    - case
+context_param:
+  description: 权限规则适用的上下文参数
+  type: object
+  properties:
+    
+
+user_domain_type:
+  description: 用户域类型
+  type: string
+user_domain_param:
+  description: 用户域参数
+  type: object
+
+permission:
+  description: 权限
+  type: string
+create_time:
+  description: 权限规则创建时间
+  type: int
+  format: int64
+read_only:
+  description: 是否只读
+  type: boolean

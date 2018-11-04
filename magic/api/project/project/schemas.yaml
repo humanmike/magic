@@ -1,0 +1,183 @@
+openapi: 3.0.0
+ProjectInfo:
+  description: 返回项目信息
+  type: object
+  properties:
+    uuid:
+      description: 项目uuid
+      type: string
+      maxLength: 16
+    name:
+      description: 项目名称
+      type: string
+      minLength: 0
+      maxLength: 128
+    status:
+      description: >-
+        项目状态
+        1.进行中
+        2.已删除
+        3.归档
+      type: integer
+      format: int32
+      enum:
+        - 1
+        - 2
+        - 3
+    announcement:
+      description: 项目公告
+      type: string
+      minLength: 0
+      maxLength: 512
+    deadline:
+      description: 截止时间，与1970的秒差
+      type: integer
+      format: int64
+    is_pin:
+      description: 是否置顶
+      type: boolean
+    is_open_email_notify:
+      description: 是否开通邮件通知
+      type: boolean
+    admins:
+      description: 项目管理员（user_uuid数组）
+      type: array
+      items:
+        type: string
+    task_update_time:
+      description: 项目下任务更新时间（单位秒）
+      type: integer
+      format: int64
+server_update_stamp:
+  type: integer
+  format: int64
+Project:
+  properties:
+    uuid:
+      type: string
+      maxLength: 16
+      minLength: 16
+      required: true
+      description: 由创建者uuid+随机8位字符组成
+    name:
+      type: string
+      maxLength: 128
+      required: true
+      description:    项目名称
+    status:
+      description: 项目状态(1进行中,3归档)
+      type: integer
+      default: 1
+      enum:
+        - 1
+        - 3
+    is_pin:
+      type: boolean
+      description: 是否置顶
+      default: false
+    is_open_email_notify:
+      type: boolean
+      description: 是否开通邮件通知
+      default: false
+    deadline:
+      type: integer
+      format: int64
+      required: false
+      description: 截止时间，与1970的秒差
+    announcement:
+      description: 项目公告
+      type: string
+      maxLength: 512
+    task_update_time:
+      description: 项目下任务更新时间(单位秒)
+      type: integer
+      format: int64
+    admins:
+      description: 项目管理员(user_uuid数组)
+      type: array
+      items:
+        type: string
+
+AddProjectRequest:
+  properties:
+    project:
+      type: object
+      properties:
+        uuid:
+          type: string
+          maxLength: 16
+          minLength: 16
+          required: true
+          description: 由创建者uuid+随机8位字符组成
+        name:
+          type: string
+          maxLength: 128
+          required: true
+          description: 	项目名称
+        announcement:
+          type: string
+          maxLength: 512
+          description: 项目公告
+        deadline:
+          type: integer
+          format: int64
+          required: false
+          description: 截止时间，与1970的秒差
+        template_id:
+          description: 项目模板id(通过/team/{teamUUID}/projects/
+          type: string
+          required: false
+    issue_types:
+      type: array
+      required: true
+      description: 任务类型的UUID数组
+      items:
+        type: string
+    copy_from:
+      required: false
+      type: object
+      description: key:project_uuid, value:issue_type_uuid数组
+      properties:
+        key:
+          type: string
+          description: 项目uuid
+        value:
+          description: issue_type_uuid数组
+          type: array
+          items:
+            type: string
+    members:
+      required: false
+      description: \"项目成员\"角色里的成员
+      type: array
+      items:
+        type: string
+
+AddProjectResponse:
+  properties:
+    project:
+      $ref: '#/Project'
+    server_update_stamp:
+      type: integer
+      format: int64
+      description: issue_type类型的数据的更新时间
+
+TemplatesResponse:
+  properties:
+    templates:
+      type: object
+      properties:
+        id:
+          description: 模板id
+          type: string
+        name:
+          description: 模板名称
+          type: string
+        desc:
+          description: 模板描述
+          type: string
+        components:
+          description: 模板包含的组件列表
+          type: array
+          items:
+            type: string

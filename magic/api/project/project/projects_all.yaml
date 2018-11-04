@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  title: project 项目
+  description: >-
+    该接口支持以下功能：
+    6. 获取团队的项目列表
+  version: v1
+servers:
+  - url: 'https://api.ones.ai/project/v1/'
+paths:
+  /team/{teamUUID}/projects/all:
+    get:
+      tags:
+        - Project
+      description: 获取团队的项目列表
+      operationId: ProjectsAll
+      parameters:
+        - $ref: './api_schema/common/parameters.yaml#/parameters/Ones-User-Id'
+        - $ref: './api_schema/common/parameters.yaml#/parameters/Ones-Auth-Token'
+        - $ref: './api_schema/common/parameters.yaml#/parameters/teamUUID'
+        - name: type
+          in: query
+          description: 返回进行中和归档项目(默认)/返回进行中/归档项目类型
+          schema:
+            type: string
+            enum:
+              # - all
+              - general
+              - archive
+        - name: limit
+          in: query
+          description: 返回项目数
+          schema:
+            type: integer
+            format: int64
+            minLength: 0
+      responses:
+        '200':
+          description: 返回项目列表信息
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projects:
+                    type: array
+                    items:
+                      $ref: './api_schema/api/project/project/schemas.yaml#ProjectInfo'
+                  archive_projects:
+                    type: array
+                    items:
+                      $ref: './api_schema/api/project/project/schemas.yaml#ProjectInfo'
+                  server_update_stamp:
+                    $ref: './api_schema/api/project/project/schemas.yaml#/server_update_stamp'
+        '403':
+          description: 无操作权限
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: './api_schema/api/project/project/errors.yaml#/AccessDeniedTeam'
+                  - $ref: './api_schema/api/project/project/errors.yaml#/PermissionDeniedAdministerDo'
+        '801':
+          description: 参数不合法
+          content:
+            application/json:
+              schema:
+                $ref: './api_schema/api/project/project/errors.yaml#/InvalidParameterProjectTypeInvalidType'
+        default:
+          description: 服务不可用
+          content:
+            application/json:
+              schema:
+                $ref: './api_schema/common/errors.yaml#/UnknownError'
+

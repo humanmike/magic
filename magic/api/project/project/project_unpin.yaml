@@ -1,0 +1,46 @@
+openapi: 3.0.0
+info:
+  title: project项目
+  description: >-
+    该接口支持以下功能：
+    14. 取消星标项目
+  version: v1
+servers:
+  - url: 'https://api.ones.ai/project/v1/'
+paths:
+  /team/{teamUUID}/project/{projectUUID}/unpin:
+    post:
+      tags:
+        - Project
+      description: 取消星标项目
+      operationId: ProjectUnPin
+      parameters:
+        - $ref: './api_schema/common/parameters.yaml#/parameters/Ones-User-Id'
+        - $ref: './api_schema/common/parameters.yaml#/parameters/Ones-Auth-Token'
+        - $ref: './api_schema/common/parameters.yaml#/parameters/teamUUID'
+        - $ref: './api_schema/common/parameters.yaml#/parameters/projectUUID'
+      responses:
+        '200':
+          description: 请求成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  server_update_stamp:
+                    $ref: './api_schema/api/project/project/schemas.yaml#/server_update_stamp'
+        '404':
+          description: 找不到内容
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  server_update_stamp:
+                    $ref: './api_schema/api/project/project/errors.yaml#/NotFoundProject'
+        default:
+          description: 服务不可用
+          content:
+            application/json:
+              schema:
+                $ref: './api_schema/common/errors.yaml#/UnknownError'

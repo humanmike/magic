@@ -1,0 +1,61 @@
+openapi: 3.0.0
+servers:
+- description: localhost
+  url: http://localhost:9001/
+info:
+  title: 项目接口
+  description: 添加项目接口
+  version: v1
+parameters:
+  Ones-Auth-Token:
+    name: Ones-Auth-Token
+    in: header
+    description: Ones auth token
+    required: true
+    schema:
+      type: string
+  Ones-User-ID:
+    name: Ones-User-ID
+    in: header
+    description: Ones user id
+    required: true
+    schema:
+      type: string
+  teamUUID:
+    name: teamUUID
+    in: path
+    description: 团队UUID
+    required: true
+    minLength: 8
+    maxLength: 8
+    schema:
+      type: string
+
+paths:
+  /team/{teamUUID}/projects/add:
+    post:
+      tags:
+      - 项目
+      summary: 添加项目
+      consumes:
+      - application/json
+      parameters:
+      - $ref: '#/parameters/Ones-User-ID'
+      - $ref: '#/parameters/Ones-Auth-Token'
+      - $ref: '#/parameters/teamUUID'
+      requestBody:
+        description: 请求的参数
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './api_schema/api/project/project/schemas.yaml#/AddProjectRequest'
+      responses:
+        "200":
+          description: 返回组件模版列表
+          content:
+            application/json:
+              schema:
+                $ref: './api_schema/api/project/project/schemas.yaml#/AddProjectResponse'
+        "500":
+          description: 服务端错误
